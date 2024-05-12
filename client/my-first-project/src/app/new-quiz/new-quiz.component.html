@@ -1,0 +1,59 @@
+<div class="quiz-container">
+  <form class="quiz-form" [formGroup]="quizForm" (ngSubmit)="onSubmit()">
+      <input formControlName="quizName" type="text" placeholder="Quiz name" required [ngClass]="{'invalid-input': quizForm.get('quizName')?.errors}" />
+      <div *ngIf="quizForm.get('quizName')?.invalid && (quizForm.get('quizName')?.dirty || quizForm.get('quizName')?.touched)">
+          <p *ngIf="quizForm.get('quizName')?.errors && quizForm.get('quizName')?.errors!['required']">Quiz Name is required.</p>
+          <p *ngIf="quizForm.get('quizName')?.errors && quizForm.get('quizName')?.errors!['quizName']">Please enter a valid quiz name.</p>
+      </div>
+
+      <input formControlName="question" type="text" placeholder="Question" required [ngClass]="{'invalid-input': quizForm.get('question')?.errors}" />
+      <div *ngIf="quizForm.get('question')?.invalid && (quizForm.get('question')?.dirty || quizForm.get('question')?.touched)">
+          <p *ngIf="quizForm.get('question')?.errors && quizForm.get('question')?.errors!['required']">Question is required.</p>
+          <p *ngIf="quizForm.get('question')?.errors && quizForm.get('question')?.errors!['question']">Please enter a valid question.</p>
+      </div>
+
+        <div formGroupName="answer1">
+            <input formControlName="possibleAnswer" type="text" placeholder="Answer #1" required [ngClass]="{'invalid-input': quizForm.get('answer1.possibleAnswer')?.errors}" />
+            <div *ngIf="quizForm.get('answer1.possibleAnswer')?.invalid && (quizForm.get('answer1.possibleAnswer')?.dirty || quizForm.get('answer1.possibleAnswer')?.touched)">
+                <p *ngIf="quizForm.get('answer1.possibleAnswer')?.errors && quizForm.get('answer1.possibleAnswer')?.errors!['required']">Answer #1 is required.</p>
+            </div>
+            <label>
+                <input formControlName="isCorrect" type="checkbox"> Is Correct
+            </label>
+        </div>
+        <div formGroupName="answer2">
+            <input formControlName="possibleAnswer" type="text" placeholder="Answer #2" required [ngClass]="{'invalid-input': quizForm.get('answer2.possibleAnswer')?.errors}" />
+            <div *ngIf="quizForm.get('answer2.possibleAnswer')?.invalid && (quizForm.get('answer2.possibleAnswer')?.dirty || quizForm.get('answer2.possibleAnswer')?.touched)">
+                <p *ngIf="quizForm.get('answer2.possibleAnswer')?.errors && quizForm.get('answer2.possibleAnswer')?.errors!['required']">Answer #4 is required.</p>
+            </div>
+            <label>
+                <input formControlName="isCorrect" type="checkbox"> Is Correct
+            </label>
+        </div>
+        <div formGroupName="answer3">
+            <input formControlName="possibleAnswer" type="text" placeholder="Answer #3" required [ngClass]="{'invalid-input': quizForm.get('answer3.possibleAnswer')?.errors}" />
+            <div *ngIf="quizForm.get('answer3.possibleAnswer')?.invalid && (quizForm.get('answer3.possibleAnswer')?.dirty || quizForm.get('answer3.possibleAnswer')?.touched)">
+                <p *ngIf="quizForm.get('answer3.possibleAnswer')?.errors && quizForm.get('answer3.possibleAnswer')?.errors!['required']">Answer #3 is required.</p>
+            </div>
+            <label>
+                <input formControlName="isCorrect" type="checkbox"> Is Correct
+            </label>
+        </div>
+        <div formGroupName="answer4">
+            <input formControlName="possibleAnswer" type="text" placeholder="Answer #4" required [ngClass]="{'invalid-input': quizForm.get('answer4.possibleAnswer')?.errors}" />
+            <div *ngIf="quizForm.get('answer4.possibleAnswer')?.invalid && (quizForm.get('answer4.possibleAnswer')?.dirty || quizForm.get('answer4.possibleAnswer')?.touched)">
+                <p *ngIf="quizForm.get('answer4.possibleAnswer')?.errors && quizForm.get('answer4.possibleAnswer')?.errors!['required']">Answer #1 is required.</p>
+            </div>
+            <label>
+                <input formControlName="isCorrect" type="checkbox"> Is Correct
+            </label>
+        </div>
+
+      <div class="buttons">
+          <button type="submit">New quiz</button>
+      </div>
+      <div class="buttons">
+          <button type="reset" (click)="goBack()">Back</button>
+      </div>
+  </form>
+</div>

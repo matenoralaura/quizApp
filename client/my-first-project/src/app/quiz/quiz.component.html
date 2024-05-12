@@ -1,0 +1,52 @@
+<!-- <h1>Id: {{id}}</h1> -->
+<div class="start_btn"><button (click)="showWarningPopup()">Start Quiz</button></div> 
+
+<div class="info_box" [ngClass]="showWarning ? 'activeInfo':''">
+    <div class="info-title"><span>Some Rules of this Quiz</span></div>
+    <div class="info-list">
+        <div class="info">1. You will have only <span>10 seconds</span> for the question.</div>
+        <div class="info">2. Once you select your answer, it can't be undone.</div>
+        <div class="info">3. You can't select any option once time goes off.</div>
+        <div class="info">4. You can't exit from the Quiz Once Started.</div> 
+    </div>
+    <div class="buttons">
+        <button class="quit">Exit Quiz</button>
+        <button class="restart" (click)="startQuiz()">Continue</button>
+    </div>
+</div>  
+
+<div class="quiz_box" [ngClass]="isQuizStarted? 'activeQuiz':''">
+    <header>
+        <div class="title">Quiz</div>
+        <div class="timer">
+            <div class="time_left_txt">Time left</div>
+            <div class="timer_sec">{{remainingTime}}</div>
+        </div>
+        <div class="time_line" style="width: 550px;"></div>
+    </header>
+    <section *ngIf="isQuizStarted">
+        <div class="que_text"><span>{{quiz.question}} </span></div>
+        <div class="option_list">
+            <div class="option" [ngClass]="{'disabled': isOptionSelected(answers),
+                                            'correct':option.isSelected && option.isCorrect,
+                                            'incorrect':option.isSelected  && !option.isCorrect}" (click)="selectOption(option)" *ngFor="let option of answers">
+                <span>{{option.possibleAnswer}}</span> 
+            </div> 
+        </div>
+    </section> 
+
+</div>
+
+
+<div class="result_box" [ngClass]="isQuizEnded?'activeResult':''">
+    <div class="icon">
+        <i class="fas fa-crown"></i>
+    </div>
+    <div class="complete_text">You've completed the Quiz!</div>
+    <div class="score_text">
+        <span>Congrats! You got 1 point!</span>
+    </div>
+    <div class="buttons">
+        <button class="quit" (click)="back()">Quit Quiz</button>
+    </div>
+</div>
