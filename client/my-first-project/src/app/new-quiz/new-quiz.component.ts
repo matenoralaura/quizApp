@@ -1,13 +1,13 @@
 import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../shared/services/auth.service';
 import { QuizService } from '../shared/services/quiz/quiz.service';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-new-quiz',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, NavbarComponent],
   templateUrl: './new-quiz.component.html',
   styleUrl: './new-quiz.component.scss'
 })

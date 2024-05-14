@@ -51,6 +51,11 @@ export class AuthService {
     return this.http.get<boolean>('http://localhost:5000/app/currentUserRole', {withCredentials: true});
   }
 
+  addPoint() {
+    // console.log("beep boop")
+    return this.http.patch('http://localhost:5000/app/updatePoints', {}, {withCredentials: true});
+  }
+
   // updateCurrentUserPoints() {
   //   console.log("!!!!!")
   //   const points = 1;

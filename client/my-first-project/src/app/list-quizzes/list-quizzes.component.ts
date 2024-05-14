@@ -7,11 +7,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Quiz } from '../shared/model/Quiz';
 import { QuizService } from '../shared/services/quiz/quiz.service';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-list-quizzes',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatIconModule,  MatDialogModule, RouterLink, MatSnackBarModule],
+  imports: [CommonModule, MatTableModule, MatIconModule,  MatDialogModule, RouterLink, MatSnackBarModule, NavbarComponent],
   templateUrl: './list-quizzes.component.html',
   styleUrl: './list-quizzes.component.scss'
 })
@@ -21,7 +22,7 @@ export class ListQuizzesComponent {
 
   constructor(
     private quizService: QuizService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {

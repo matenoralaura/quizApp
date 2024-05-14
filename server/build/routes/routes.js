@@ -155,7 +155,7 @@ const configureRoutes = (passport, router) => {
         if (req.isAuthenticated()) {
             const query = User_1.User.find();
             query.then(data => {
-                res.status(200).send(data);
+                res.status(200).send(data.sort((a, b) => b.points - a.points));
             }).catch(error => {
                 console.log(error);
                 res.status(500).send('Internal server error.');
@@ -196,6 +196,16 @@ const configureRoutes = (passport, router) => {
         }
         else {
             res.status(500).send(false);
+        }
+    }));
+    router.patch('/updatePoints', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            yield User_1.User.updateOne({ _id: req.user }, { $inc: { points: 1 } });
+            res.status(200).send("Points updated successfully");
+        }
+        catch (error) {
+            console.error("Error updating points:", error);
+            res.status(500).send("An error occurred while updating points");
         }
     }));
     // router.get('/currentUser', (req: Request, res: Response,) => {

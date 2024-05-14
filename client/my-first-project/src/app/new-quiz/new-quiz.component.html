@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <div class="quiz-container">
   <form class="quiz-form" [formGroup]="quizForm" (ngSubmit)="onSubmit()">
       <input formControlName="quizName" type="text" placeholder="Quiz name" required [ngClass]="{'invalid-input': quizForm.get('quizName')?.errors}" />

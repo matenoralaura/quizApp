@@ -9,7 +9,6 @@ import { Types } from 'mongoose';
 export const configureRoutes = (passport: PassportStatic, router: Router): Router => {
 
     router.get('/', (req: Request, res: Response) => {
-        let myClass = new MainClass();
         res.status(200).send('Hello, World!');
     });
 
@@ -25,54 +24,6 @@ export const configureRoutes = (passport: PassportStatic, router: Router): Route
             }
         });
     });
-
-    // router.get('/promise', async (req: Request, res: Response) => {
-    //     let myClass = new MainClass();
-    //     /* myClass.monitoringPromise().then((data: string) => {
-    //         res.write(data);
-    //         res.status(200).end();
-    //     }).catch((error: string) => {
-    //         res.write(error);
-    //         res.status(400).end();
-    //     }); */
-
-
-    //     // async-await
-    //     try {
-    //         const data = await myClass.monitoringPromise();
-    //         res.write(data);
-    //         res.status(200).end();
-    //     } catch (error) {
-    //         res.write(error);
-    //         res.status(400).end();
-    //     }
-    // });
-
-
-    // router.get('/observable', (req: Request, res: Response) => {
-    //     let myClass = new MainClass();
-    //     res.setHeader('Content-Type', 'text/html; charset=UTF-8');
-    //     res.setHeader('Transfer-Encoding', 'chunked');
-
-    //     // deprecated variant
-    //     /* myClass.monitoringObservable().subscribe((data) => {
-    //         console.log(data);
-    //     }, (error) => {
-    //         console.log(error);
-    //     }, () => {
-    //         console.log('complete');
-    //     }); */
-
-    //     myClass.monitoringObservable().subscribe({
-    //         next(data: string) {
-    //             res.write(data);
-    //         }, error(error: string) {
-    //             res.status(400).end(error);
-    //         }, complete() {
-    //             res.status(200).end();
-    //         }
-    //     });
-    // });
 
     router.post('/login', (req: Request, res: Response, next: NextFunction) => {
         passport.authenticate('local', (error: string | null, user: typeof User) => {
@@ -115,24 +66,20 @@ export const configureRoutes = (passport: PassportStatic, router: Router): Route
         console.log(req, "req")
 
         const quizName = req.body.quizName;
-        // const userId = req.user;
         const question = req.body.question;
         const answer1 = JSON.parse(req.body.answer1);
         const answer2 = JSON.parse(req.body.answer2);
         const answer3 = JSON.parse(req.body.answer3);
         const answer4 = JSON.parse(req.body.answer4);
-        // const correctAnswer = req.body.correctAnswer;
         const createdAt = new Date();
 
         const quiz = new Quiz({
             quizName: quizName,
-            // userId: userId,
             question: question,
             answer1: answer1,
             answer2: answer2,
             answer3: answer3,
             answer4: answer4,
-            // correctAnswer: correctAnswer,
             createdAt: createdAt
         });
         quiz.save().then(data => {
@@ -160,7 +107,7 @@ export const configureRoutes = (passport: PassportStatic, router: Router): Route
         if (req.isAuthenticated()) {
             const query = User.find();
             query.then(data => {
-                res.status(200).send(data);
+                res.status(200).send(data.sort((a, b) => b.points - a.points));
             }).catch(error => {
                 console.log(error);
                 res.status(500).send('Internal server error.');
@@ -204,10 +151,18 @@ export const configureRoutes = (passport: PassportStatic, router: Router): Route
         }
     });
 
-    // router.get('/currentUser', (req: Request, res: Response,) => {
-    //     console.log(req.body.amount, "amount patch");
-    //     return req.user;
-    // });
+    router.patch('/updatePoints', async (req: Request, res: Response) => {
+        try {
+            await User.updateOne(
+                { _id: req.user },
+                { $inc: { points: 1 } }
+            );
+            res.status(200).send("Points updated successfully");
+        } catch (error) {
+            console.error("Error updating points:", error);
+            res.status(500).send("An error occurred while updating points");
+        }
+    });
 
     router.delete('/deleteUser', (req: Request, res: Response) => {
         if (req.isAuthenticated()) {

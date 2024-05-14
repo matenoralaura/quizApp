@@ -1,4 +1,4 @@
-<!-- <h1>Id: {{id}}</h1> -->
+<app-navbar></app-navbar>
 <div class="start_btn"><button (click)="showWarningPopup()">Start Quiz</button></div> 
 
 <div class="info_box" [ngClass]="showWarning ? 'activeInfo':''">
@@ -46,6 +46,16 @@
     <div class="score_text">
         <span>Congrats! You got 1 point!</span>
     </div>
+    <div class="buttons">
+        <button class="quit" (click)="back()">Quit Quiz</button>
+    </div>
+</div>
+
+<div class="result_box" [ngClass]="timeUp?'activeResult':''">
+    <div class="icon">
+        <i class="fas fa-crown"></i>
+    </div>
+    <div class="complete_text">Time is up!</div>
     <div class="buttons">
         <button class="quit" (click)="back()">Quit Quiz</button>
     </div>

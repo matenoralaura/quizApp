@@ -1,25 +1,5 @@
-<!-- <div class="table-container" *ngIf="users && users.length; else noUsersTemplate">
-    <table>
-        <thead>
-            <tr>
-                <th>Email</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Nickname</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of users">
-                <td>{{user.email}}</td>
-                <td>{{user.name}}</td>
-                <td>{{user.address}}</td>
-                <td>{{user.nickname}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div> -->
-
-<div class="table-container" *ngIf="users && users.length; else noUsersTemplate">
+<app-navbar></app-navbar>
+<div class="table-container" *ngIf="users; else noUsersTemplate">
     <table mat-table [dataSource]="users">
         <ng-container matColumnDef="email">
             <th mat-header-cell *matHeaderCellDef>Email</th>
@@ -41,9 +21,9 @@
             <td mat-cell *matCellDef="let element">{{element.nickname}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef>Delete</th>
-            <td mat-cell *matCellDef="let element; let i = index"><mat-icon fontIcon="delete" (click)="deleteUser(element._id, i)"></mat-icon></td>
+        <ng-container matColumnDef="points">
+            <th mat-header-cell *matHeaderCellDef>Points</th>
+            <td mat-cell *matCellDef="let element">{{element.points}}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columns"></tr>
