@@ -60,3 +60,13 @@
         <button class="quit" (click)="back()">Quit Quiz</button>
     </div>
 </div>
+
+<div class="result_box" [ngClass]="incorrect?'activeResult':''">
+    <div class="icon">
+        <i class="fas fa-crown"></i>
+    </div>
+    <div class="complete_text">Incorrect answer! Maybe next time.</div>
+    <div class="buttons">
+        <button class="quit" (click)="back()">Quit Quiz</button>
+    </div>
+</div>

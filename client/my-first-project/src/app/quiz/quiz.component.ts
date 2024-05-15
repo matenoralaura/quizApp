@@ -23,6 +23,7 @@ export class QuizComponent implements OnInit {
   currentUser: any;
 
   timeUp: boolean = false;
+  incorrect: boolean = false;
 
   remainingTime:number = 10;
 
@@ -80,6 +81,8 @@ export class QuizComponent implements OnInit {
       this.correctAnswerCount ++;
       //user pont ++
       this.addPoint()
+    } else {
+      this.incorrect = true;
     }
     option.isSelected = true;
     this.isQuizEnded = true;
@@ -96,9 +99,9 @@ export class QuizComponent implements OnInit {
     this.showWarning = false;
     this.isQuizStarted = true;  
    this.subscription.push(this.timer.subscribe(res=> {
-      if(this.remainingTime != 0) {
+      if(this.remainingTime != 0 && this.correctAnswerCount === 0 && this.incorrect===false) {
         this.remainingTime --;
-      } else {
+      } else if (this.remainingTime === 0){
         this.timeUp = true;
       }
     })

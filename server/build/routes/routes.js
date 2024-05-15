@@ -15,7 +15,6 @@ const User_1 = require("../model/User");
 const Quiz_1 = require("../model/Quiz");
 const configureRoutes = (passport, router) => {
     router.get('/', (req, res) => {
-        let myClass = new main_class_1.MainClass();
         res.status(200).send('Hello, World!');
     });
     router.get('/callback', (req, res) => {
@@ -31,47 +30,6 @@ const configureRoutes = (passport, router) => {
             }
         });
     });
-    // router.get('/promise', async (req: Request, res: Response) => {
-    //     let myClass = new MainClass();
-    //     /* myClass.monitoringPromise().then((data: string) => {
-    //         res.write(data);
-    //         res.status(200).end();
-    //     }).catch((error: string) => {
-    //         res.write(error);
-    //         res.status(400).end();
-    //     }); */
-    //     // async-await
-    //     try {
-    //         const data = await myClass.monitoringPromise();
-    //         res.write(data);
-    //         res.status(200).end();
-    //     } catch (error) {
-    //         res.write(error);
-    //         res.status(400).end();
-    //     }
-    // });
-    // router.get('/observable', (req: Request, res: Response) => {
-    //     let myClass = new MainClass();
-    //     res.setHeader('Content-Type', 'text/html; charset=UTF-8');
-    //     res.setHeader('Transfer-Encoding', 'chunked');
-    //     // deprecated variant
-    //     /* myClass.monitoringObservable().subscribe((data) => {
-    //         console.log(data);
-    //     }, (error) => {
-    //         console.log(error);
-    //     }, () => {
-    //         console.log('complete');
-    //     }); */
-    //     myClass.monitoringObservable().subscribe({
-    //         next(data: string) {
-    //             res.write(data);
-    //         }, error(error: string) {
-    //             res.status(400).end(error);
-    //         }, complete() {
-    //             res.status(200).end();
-    //         }
-    //     });
-    // });
     router.post('/login', (req, res, next) => {
         passport.authenticate('local', (error, user) => {
             if (error) {
@@ -112,23 +70,19 @@ const configureRoutes = (passport, router) => {
     router.post('/new-quiz', (req, res) => {
         console.log(req, "req");
         const quizName = req.body.quizName;
-        // const userId = req.user;
         const question = req.body.question;
         const answer1 = JSON.parse(req.body.answer1);
         const answer2 = JSON.parse(req.body.answer2);
         const answer3 = JSON.parse(req.body.answer3);
         const answer4 = JSON.parse(req.body.answer4);
-        // const correctAnswer = req.body.correctAnswer;
         const createdAt = new Date();
         const quiz = new Quiz_1.Quiz({
             quizName: quizName,
-            // userId: userId,
             question: question,
             answer1: answer1,
             answer2: answer2,
             answer3: answer3,
             answer4: answer4,
-            // correctAnswer: correctAnswer,
             createdAt: createdAt
         });
         quiz.save().then(data => {
@@ -208,10 +162,6 @@ const configureRoutes = (passport, router) => {
             res.status(500).send("An error occurred while updating points");
         }
     }));
-    // router.get('/currentUser', (req: Request, res: Response,) => {
-    //     console.log(req.body.amount, "amount patch");
-    //     return req.user;
-    // });
     router.delete('/deleteUser', (req, res) => {
         if (req.isAuthenticated()) {
             const id = req.query.id;
