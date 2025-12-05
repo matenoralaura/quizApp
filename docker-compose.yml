@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  web-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:3000"
+    depends_on:
+      mongo-db:
+        condition: service_started
+    environment:
+      MONGO_URI: mongodb://mongo-db:27017/my-project-db
+      NODE_ENV: development
+
+  mongo-db:
+    build:
+      context: ./server/
+      dockerfile: Dockerfile 
+    image: my_mongo_image:latest
+    ports:
+      - "6000:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

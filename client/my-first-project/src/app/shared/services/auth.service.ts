@@ -7,6 +7,8 @@ import { User } from '../model/User';
 })
 export class AuthService {
 
+  private baseUrl = '/app'; 
+
   constructor(private http: HttpClient) { }
 
   // login
@@ -20,7 +22,7 @@ export class AuthService {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
 
-    return this.http.post('http://localhost:5000/app/login', body, {headers: headers, withCredentials: true});
+    return this.http.post(this.baseUrl + '/login', body, {headers: headers, withCredentials: true});
   }
 
   register(user: User) {
@@ -36,31 +38,22 @@ export class AuthService {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
 
-    return this.http.post('http://localhost:5000/app/register', body, {headers: headers});
+    return this.http.post(this.baseUrl + '/register', body, {headers: headers});
   }
 
   logout() {
-    return this.http.post('http://localhost:5000/app/logout', {}, {withCredentials: true, responseType: 'text'});
+    return this.http.post(this.baseUrl + '/logout', {}, {withCredentials: true, responseType: 'text'});
   }
 
   checkAuth() {
-    return this.http.get<boolean>('http://localhost:5000/app/checkAuth', {withCredentials: true});
+    return this.http.get<boolean>(this.baseUrl + '/checkAuth', {withCredentials: true});
   }
 
   checkAdmin() {
-    return this.http.get<boolean>('http://localhost:5000/app/currentUserRole', {withCredentials: true});
+    return this.http.get<boolean>(this.baseUrl + '/currentUserRole', {withCredentials: true});
   }
 
   addPoint() {
-    // console.log("beep boop")
-    return this.http.patch('http://localhost:5000/app/updatePoints', {}, {withCredentials: true});
+    return this.http.patch(this.baseUrl + '/updatePoints', {}, {withCredentials: true});
   }
-
-  // updateCurrentUserPoints() {
-  //   console.log("!!!!!")
-  //   const points = 1;
-  //   // const body = new URLSearchParams();
-  //   // body.set('points', user.points.toString());
-  //   return this.http.patch('http://localhost:5000/app/currentUser', { points }, { withCredentials: true });
-  // }
 }

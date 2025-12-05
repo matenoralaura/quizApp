@@ -1,0 +1,13 @@
+# Node.js
+node_modules
+npm-debug.log
+.DS_Store
+.env
+
+# Angular
+client/my-first-project/node_modules
+client/my-first-project/dist
+client/my-first-project/tmp
+
+# Server
+server/node_modules

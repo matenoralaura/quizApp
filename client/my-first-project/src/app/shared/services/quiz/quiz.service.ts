@@ -7,14 +7,16 @@ import { Quiz } from '../../model/Quiz';
 })
 export class QuizService {
 
+  baseUrl = '/app';
+
   constructor(private http: HttpClient) { }
 
   getAll() {
-    return this.http.get<Quiz[]>('http://localhost:5000/app/quizzes', {withCredentials: true});
+    return this.http.get<Quiz[]>(this.baseUrl + '/quizzes', {withCredentials: true});
   }
 
   getOne(id: string) {
-    return this.http.get<Quiz>('http://localhost:5000/app/quizzes/?id=' + id, {withCredentials: true});
+    return this.http.get<Quiz>(this.baseUrl + '/quizzes/?id=' + id, {withCredentials: true});
   }
 
   create(quiz: Quiz) {
@@ -30,10 +32,10 @@ export class QuizService {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
 
-    return this.http.post('http://localhost:5000/app/new-quiz', body, {headers: headers});
+    return this.http.post(this.baseUrl + '/new-quiz', body, {headers: headers});
   }
 
   delete(id: string) {
-    return this.http.delete('http://localhost:5000/app/deleteQuiz?id=' + id, {withCredentials: true});
+    return this.http.delete(this.baseUrl + '/deleteQuiz?id=' + id, {withCredentials: true});
   }
 }
