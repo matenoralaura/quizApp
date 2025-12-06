@@ -10,18 +10,20 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  baseUrl = '/app';
+
   getAll() {
-    return this.http.get<User[]>('http://localhost:5000/app/getAllUsers', {withCredentials: true});
+    return this.http.get<User[]>(this.baseUrl + '/getAllUsers', {withCredentials: true});
   }
 
   patch(userId: string): Observable<any> {
-    const url = `http://localhost:5000/api/users/${userId}/points`;
+    const url = `/app/users/${userId}/points`;
 
     return this.http.patch(url, { withCredentials: true });
   }
 
 
   delete(id: string) {
-    return this.http.delete('http://localhost:5000/app/deleteUser?id=' + id, {withCredentials: true});
+    return this.http.delete(this.baseUrl + '/deleteUser?id=' + id, {withCredentials: true});
   }
 }
