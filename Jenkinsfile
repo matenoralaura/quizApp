@@ -16,7 +16,20 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                echo 'Ready for kubernetes deployment...'
+                script {
+                    echo 'Downloading kubectl...'
+                    sh "curl -LO https://dl.k8s.io/release/v1.29.0/bin/linux/amd64/kubectl"
+                    
+                    sh "chmod +x ./kubectl"
+                    
+                    echo 'Deploying to K8s...'
+                    withKubeConfig([credentialsId: 'k8s-local-config', serverUrl: 'https://host.docker.internal:6443']) {
+                        
+                        sh "./kubectl apply -f k8s/"
+                        
+                        sh "./kubectl rollout restart deployment/quiz-app"
+                    }
+                }
             }
         }
     }
