@@ -27,6 +27,7 @@ A rendszer `Jenkinsfile`-t használ, amely a következőket hajtja végre:
 
 ### User role beállítása
 Ha az appban egy kvízt szeretnénk készíteni, azt csak admin role-lal lehet, amit külön be kell állítani a db-ben:
+
 A mongodb podjában mongo shellt (mongosh) nyitva, pl. "teszt" nevű user esetén:
 ```bash
 use quiz-db
