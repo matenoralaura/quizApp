@@ -22,7 +22,6 @@ export class UserService {
     return this.http.patch(url, { withCredentials: true });
   }
 
-
   delete(id: string) {
     return this.http.delete(this.baseUrl + '/deleteUser?id=' + id, {withCredentials: true});
   }

@@ -2,6 +2,21 @@ pipeline {
     agent any
 
     stages {
+        stage('Unit tests (backend)') {
+            steps {
+                script {
+                    echo 'Running backend tests...'
+                    dir('server') {
+                        // image-en belül futtatunk - nem kell a jenkinsre node-ot telepíteni => tiszta megoldás
+                        docker.image('node:20-alpine').inside {
+                            sh 'npm install'
+                            sh 'npm test'
+                        }
+                    }
+                }
+            }
+        }
+
         stage('Build & Push Docker Image') {
             steps {
                 script {
