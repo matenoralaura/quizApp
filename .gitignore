@@ -1,4 +1,14 @@
-node_modules/
+**/node_modules/
+
 dist/
 build/
+out/
+
 .DS_Store
+
+*.log
+npm-debug.log*
+
+coverage/
+
+.vscode/
